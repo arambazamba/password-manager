@@ -17,10 +17,25 @@
     gap: 5px
 }
 
+.editRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;    
+}
+
 .row{
     display: flex;
     flex-direction: column;
     gap: 5px;
     border-bottom: 1px solid black;
     margin-top: 5px;
+    padding-bottom: 5px;
+}
+
+.buttonActions{
+    margin-right: 5px;
+}
+
+button{
+    height: 2rem;
 }

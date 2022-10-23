@@ -11,15 +11,15 @@ export class DataService {
   url = 'http://localhost:3000/passwords';
 
   getPasswords() {
-    return this.http.get(this.url);
+    return this.http.get<Password[]>(this.url);
   }
 
   addPassword(pw: Password) {
-    return this.http.post(this.url, pw);
+    return this.http.post<Password>(this.url, pw);
   }
 
   updatePassword(pw: Password) {
-    return this.http.put(this.url + '/' + pw.id, pw);
+    return this.http.put<Password>(this.url + '/' + pw.id, pw);
   }
 
   deletePassword(id: number) {

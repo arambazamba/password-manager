@@ -15,13 +15,25 @@ export class AppComponent {
   constructor(private ds: DataService) {}
 
   ngOnInit() {
-    this.ds.getPasswords().subscribe((data: any) => {
+    this.ds.getPasswords().subscribe((data) => {
       this.passwords = data;
     });
   }
 
-  addPassword(pw: Password) {
-    this.passwords.push(pw);
-    this.passwordToAdd = new Password();
+  savePassword(pw: Password) {
+    this.ds.addPassword(pw).subscribe((data: Password) => {
+      this.passwords.push(data);
+      this.passwordToAdd = new Password();
+    });
+  }
+
+  deletePassword(id: number) {
+    this.ds.deletePassword(id).subscribe(() => {
+      this.passwords = this.passwords.filter((pw) => pw.id !== id);
+    });
+  }
+
+  editPasswort(pw: Password) {
+    this.passwordToAdd = pw;
   }
 }
