@@ -2,7 +2,9 @@
   <h1>{{title}}</h1>
 </div>
 <div class="box">
-  <h2>List of passwords comes here:</h2>
+  <div class="editRow">
+    <h2>List of passwords comes here:</h2><button (click)="addPassword()" >Add New Password</button>
+  </div>
   
   <div *ngFor="let item of passwords" class="row">
     <div>Title: {{item.title}}</div>
@@ -14,12 +16,12 @@
   </div>
 </div>
 
-<div class="box">
-  <div class="editRow"><h2>Edit Password</h2> <button>Add Password</button></div>
+<div class="box" *ngIf="selectedPassword != null">
+  <div><h2>Edit Password</h2> </div>
   <div class="container">
-    <label>Id: {{passwordToAdd.id}} </label>
-    <input type ="text" [(ngModel)]="passwordToAdd.title" placeholder="title" />
-    <input type="text" [(ngModel)]="passwordToAdd.password" placeholder="password" />
-    <button (click)="savePassword(passwordToAdd)">Save password</button>
+    <label>Id: {{selectedPassword.id}} </label>
+    <input type ="text" [(ngModel)]="selectedPassword.title" placeholder="title" />
+    <input type="text" [(ngModel)]="selectedPassword.password" placeholder="password" />
+    <button (click)="savePassword(selectedPassword)">Save password</button>
   </div>
 </div>

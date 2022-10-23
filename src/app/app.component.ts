@@ -10,7 +10,7 @@ import { Password } from './password.model';
 export class AppComponent {
   title = 'Password manager ...';
   passwords: Password[] = [];
-  selectedPassword: Password = new Password();
+  selectedPassword: Password | null = null;
 
   constructor(private ds: DataService) {}
 
@@ -22,14 +22,15 @@ export class AppComponent {
 
   savePassword(pw: Password) {
     if (pw.id == 0) {
-      this.ds.addPassword(pw).subscribe((data: Password) => {
-        this.passwords.push(data);
-        this.selectedPassword = new Password();
+      this.ds.addPassword(pw).subscribe((inserted: Password) => {
+        this.passwords.push(inserted);
+        this.selectedPassword = null;
       });
     } else {
-      this.ds.updatePassword(pw).subscribe((data: Password) => {
-        this.passwords.push(data);
-        this.selectedPassword = new Password();
+      this.ds.updatePassword(pw).subscribe((updated: Password) => {
+        let existing = this.passwords.find((p) => p.id == updated.id);
+        existing = { ...updated };
+        this.selectedPassword = null;
       });
     }
   }
